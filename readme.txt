@@ -14,13 +14,13 @@ Adds shortcodes [blogurl] and [posturl] for WordPress 2.6 and up. Use [blogurl] 
 
 = Features =
 
-* [blogurl] will generate http://www.yoursite.com/
+* [blogurl] will generate `http://www.yoursite.com/`
 
-* [blogurl noslash] will generate http://www.yoursite.com
+* [blogurl noslash] will generate `http://www.yoursite.com`
 
-* [blogurl uploads] will generate http://www.yoursite.com/wp-content/uploads/
+* [blogurl uploads] will generate `http://www.yoursite.com/wp-content/uploads/`
 
-* [blogurl uploads noslash] will generate http://www.yoursite.com/wp-content/uploads
+* [blogurl uploads noslash] will generate `http://www.yoursite.com/wp-content/uploads`
 
 * [posturl id=375] will generate the correct permalink for the post with an ID of 375; for example, &lt;a href="[posturl id=375]">post about this plugin&lt;/a> would generate [post about this plugin](http://www.theblog.ca/blog-url-shortcodes "From Peter's Useful Crap")
 
