@@ -3,14 +3,14 @@ Contributors: pkthree
 Donate link: http://www.theblog.ca
 Tags: shortcode, post, url, admin
 Requires at least: 2.6
-Tested up to: 2.7
+Tested up to: 3.0
 Stable tag: trunk
 
-Use shortcodes for blog URLs and post URLs, so that your posts always have the correct internal links.
+Use shortcodes for blog URLs, post URLs, and template URLs so that your posts always have the correct internal links.
 
 == Description ==
 
-Adds shortcodes [blogurl] and [posturl] for WordPress 2.6 and up. Use [blogurl] to generate your site URL. It offers the parameters "slash" and "noslash" (to add a trailing slash), as well as "uploads" to produce the URL of the uploads folder. Use [posturl id=3] (replace "3" with a post ID) to generate the permalink for any post.
+Adds shortcodes [blogurl], [posturl], and [templateurl] for WordPress 2.6 and up. Use [blogurl] to generate your site URL. It offers the parameters "slash" and "noslash" (to add a trailing slash; [templateurl] also supports this), as well as "uploads" to produce the URL of the uploads folder. Use [posturl id=3] (replace "3" with a post ID) to generate the permalink for any post.
 
 = Features =
 
@@ -23,6 +23,8 @@ Adds shortcodes [blogurl] and [posturl] for WordPress 2.6 and up. Use [blogurl] 
 * [blogurl uploads noslash] will generate `http://www.yoursite.com/wp-content/uploads`
 
 * [posturl id=375] will generate the correct permalink for the post with an ID of 375; for example, &lt;a href="[posturl id=375]">post about this plugin&lt;/a> would generate [post about this plugin](http://www.theblog.ca/blog-url-shortcodes "From Peter's Useful Crap")
+
+* [templateurl] will generate the URL to your parent theme's root
 
 = Requirements =
 
