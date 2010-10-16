@@ -10,11 +10,13 @@ Use shortcodes for blog URLs, post URLs, and template URLs so that your posts al
 
 == Description ==
 
-Adds shortcodes [blogurl], [posturl], and [templateurl] for WordPress 2.6 and up. Use [blogurl] to generate your site URL. It offers the parameters "slash" and "noslash" (to add a trailing slash; [templateurl] also supports this), as well as "uploads" to produce the URL of the uploads folder. Use [posturl id=3] (replace "3" with a post ID) to generate the permalink for any post.
+Adds shortcodes [blogurl], [posturl], and [templateurl] for WordPress 2.6 and up. Use [blogurl] to generate your site URL. It offers the parameters "slash" and "noslash" (to add a trailing slash; [templateurl] also supports this), as well as "uploads" to produce the URL of the uploads folder and "wordpress" to produce the URL of your WP files. Use [posturl id=3] (replace "3" with a post ID) to generate the permalink for any post.
 
 = Features =
 
 * [blogurl] will generate `http://www.yoursite.com/`
+
+* [blogurl wordpress] will generate the URL to the root of your WordPress files, if they are in a different location than your site root
 
 * [blogurl noslash] will generate `http://www.yoursite.com`
 
