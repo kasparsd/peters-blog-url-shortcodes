@@ -2,11 +2,11 @@
 /*
 Plugin Name: Peter's Blog URL Shortcodes
 Plugin URI: http://www.theblog.ca/blog-url-shortcodes
-Description: Adds shortcodes [blogurl], [posturl], and [templateurl] for WordPress 2.6 and up. Use [blogurl] to generate your site URL. It offers the parameters "slash" and "noslash" (to add a trailing slash; [templateurl] also supports this), as well as "uploads" to produce the URL of the uploads folder. Use [posturl id=3] (replace "3" with a post ID) to generate the permalink for any post.
+Description: Adds shortcodes [blogurl], [posturl], and [templateurl] for WordPress 2.6 and up. Use [blogurl] to generate your site URL. It offers the parameters "slash" and "noslash" (to add a trailing slash; [templateurl] also supports this), as well as "uploads" to produce the URL of the uploads folder and "wordpress" to produce the URL of your WP files. Use [posturl id=3] (replace "3" with a post ID) to generate the permalink for any post.
 Author: Peter Keung
 Version: 0.2
 Change Log:
-2008-10-16  0.2: Added [templateurl] shortcode. Some code cleanup as well.
+2008-10-16  0.2: Added [templateurl] shortcode and [blogurl wordpress] differentiation from just [blogurl]. Some code cleanup as well.
 2008-11-16  0.1: First release
 Author URI: http://www.theblog.ca/
 */
@@ -23,8 +23,12 @@ class blogurlShortcodes
 
         $blogurl_settings = array(); // Do not change this line
 
-        // This is the value if you enter [blogurl]
-        $blogurl_settings['siteurl'] = get_option( 'siteurl' );
+        // This is [blogurl] -- pointing to your site's root URL
+        // This is different than [blogurl wordpress] if your WordPress files are not at the same level as your site root
+        $blogurl_settings['home'] = get_option( 'home' );
+
+        // This is the value if you enter [blogurl wordpress]: the root of your WordPress files
+        $blogurl_settings['wordpress'] = get_option( 'siteurl' );
 
         // Set this to true if you are comfortable with [blogurl]wp-content/etc
         // Set this to false if you are more comfortable with [blogurl]/wp-content/etc
@@ -50,13 +54,17 @@ class blogurlShortcodes
             $attributes = array_flip( $attributes );
         }
         
-        if( isset( $attributes['uploads'] ) )
+        if( isset( $attributes['wordpress'] ) )
+        {
+            $return_blogurl = $blogurl_settings['wordpress'];
+        }
+        elseif( isset( $attributes['uploads'] ) )
         {
             $return_blogurl = $blogurl_settings['uploads'];
         }
         else
         {
-            $return_blogurl = $blogurl_settings['siteurl'];
+            $return_blogurl = $blogurl_settings['home'];
         }
 
         if( isset( $attributes['slash'] ) || ( $blogurl_settings['insertslash'] && !isset( $attributes['noslash'] ) ) )
@@ -113,7 +121,7 @@ class blogurlShortcodes
         }
         else
         {
-            $blogurl_settings['uploads'] = get_option( 'siteurl' ) . '/' . get_option( 'upload_path' );
+            $blogurl_settings['uploads'] = $blogurl_settings['wordpress'] . '/' . get_option( 'upload_path' );
         }
 
         // To define your own upload URL path (for [blogurl uploads], comment out the line below
