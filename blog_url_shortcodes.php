@@ -2,11 +2,12 @@
 /*
 Plugin Name: Peter's Blog URL Shortcodes
 Plugin URI: http://www.theblog.ca/blog-url-shortcodes
-Description: Adds shortcodes [blogurl], [posturl], and [templateurl] for WordPress 2.6 and up. Use [blogurl] to generate your site URL. It offers the parameters "slash" and "noslash" (to add a trailing slash; [templateurl] also supports this), as well as "uploads" to produce the URL of the uploads folder and "wordpress" to produce the URL of your WP files. Use [posturl id=3] (replace "3" with a post ID) to generate the permalink for any post.
+Description: Adds shortcodes [blogurl], [posturl], [templateurl] and [childtemplateurl] for WordPress 2.6 and up. Use [blogurl] to generate your site URL. It offers the parameters "slash" and "noslash" (to add a trailing slash; [templateurl] and [childtemplateurl] also support this), as well as "uploads" to produce the URL of the uploads folder and "wordpress" to produce the URL of your WP files. Use [posturl id=3] (replace "3" with a post ID) to generate the permalink for any post.
 Author: Peter Keung
-Version: 0.2
+Version: 0.3
 Change Log:
-2008-10-16  0.2: Added [templateurl] shortcode and [blogurl wordpress] differentiation from just [blogurl]. Some code cleanup as well.
+2011-03-06  0.3: Added [childtemplateurl] shortcode.
+2010-10-16  0.2: Added [templateurl] shortcode and [blogurl wordpress] differentiation from just [blogurl]. Some code cleanup as well.
 2008-11-16  0.1: First release
 Author URI: http://www.theblog.ca/
 */
@@ -35,7 +36,10 @@ class blogurlShortcodes
         $blogurl_settings['insertslash'] = true;
 
         // Template path used for [templateurl]
-        $blogurl_settings['templateurl'] = get_bloginfo( 'template_url' );
+        $blogurl_settings['templateurl'] = get_bloginfo( 'template_directory' );
+        
+        // Template path used for [childtemplateurl]
+        $blogurl_settings['childtemplateurl'] = get_bloginfo( 'stylesheet_directory' );
         
         /* -----------------------
         End of settings
@@ -108,6 +112,27 @@ class blogurlShortcodes
         
         return $return_templateurl;
     }
+   
+    // [childtemplateurl slash noslash]
+
+    public static function childtemplateurl( $attributes )
+    {
+        $blogurl_settings = blogurlShortcodes::getSettings();
+
+        $return_templateurl = $blogurl_settings['childtemplateurl'];
+
+        if( is_array( $attributes ) )
+        {
+            $attributes = array_flip( $attributes );
+        }
+        
+        if( isset( $attributes['slash'] ) || ( $blogurl_settings['insertslash'] && !isset( $attributes['noslash'] ) ) )
+        {
+            $return_templateurl .= '/';
+        }
+        
+        return $return_templateurl;
+    }
     
     public static function getSettings()
     {
@@ -134,4 +159,5 @@ class blogurlShortcodes
 add_shortcode( 'blogurl', array( 'blogurlShortcodes', 'blogurl' ) );
 add_shortcode( 'posturl', array( 'blogurlShortcodes', 'posturl' ) );
 add_shortcode( 'templateurl', array( 'blogurlShortcodes', 'templateurl' ) );
+add_shortcode( 'childtemplateurl', array( 'blogurlShortcodes', 'childtemplateurl' ) );
 ?>
