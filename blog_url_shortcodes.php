@@ -4,8 +4,9 @@ Plugin Name: Peter's Blog URL Shortcodes
 Plugin URI: http://www.theblog.ca/blog-url-shortcodes
 Description: Adds shortcodes [blogurl], [posturl], [templateurl] and [childtemplateurl] for WordPress 2.6 and up. Use [blogurl] to generate your site URL. It offers the parameters "slash" and "noslash" (to add a trailing slash; [templateurl] and [childtemplateurl] also support this), as well as "uploads" to produce the URL of the uploads folder and "wordpress" to produce the URL of your WP files. Use [posturl id=3] (replace "3" with a post ID) to generate the permalink for any post.
 Author: Peter Keung
-Version: 0.3
+Version: 0.4
 Change Log:
+2013-04-08  0.4: Small improvement to logic to output the upload URL. (Thanks ChichipioWilson!)
 2011-03-06  0.3: Added [childtemplateurl] shortcode.
 2010-10-16  0.2: Added [templateurl] shortcode and [blogurl wordpress] differentiation from just [blogurl]. Some code cleanup as well.
 2008-11-16  0.1: First release
@@ -137,11 +138,16 @@ class blogurlShortcodes
     public static function getSettings()
     {
         $blogurl_settings = blogurlShortcodes::userSettings();
+        $upload_dir = wp_upload_dir();
         
-        // It's best not to touch this if / else statement
-        if( '' != get_option( 'upload_url_path' ) )
+        if( !$upload_dir['error'] )
         {
-            // This is set in Settings > Miscellaneous > Full URL path to files
+            $blogurl_settings['uploads'] = $upload_dir['baseurl'];
+        }
+        elseif( '' != get_option( 'upload_url_path' ) )
+        {
+            // Prior to WordPress 3.5, this was set in Settings > Media > Full URL path to files
+            // In WordPress 3.5+ this is now hidden
             $blogurl_settings['uploads'] = get_option( 'upload_url_path' );
         }
         else
