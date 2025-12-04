@@ -138,7 +138,7 @@ class blogurlShortcodes
     public static function getSettings()
     {
         $blogurl_settings = blogurlShortcodes::userSettings();
-        $upload_dir = wp_upload_dir();
+        $upload_dir = wp_get_upload_dir();
         
         if( !$upload_dir['error'] )
         {
