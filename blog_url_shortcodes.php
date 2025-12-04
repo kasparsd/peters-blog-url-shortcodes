@@ -166,4 +166,3 @@ add_shortcode( 'blogurl', array( 'blogurlShortcodes', 'blogurl' ) );
 add_shortcode( 'posturl', array( 'blogurlShortcodes', 'posturl' ) );
 add_shortcode( 'templateurl', array( 'blogurlShortcodes', 'templateurl' ) );
 add_shortcode( 'childtemplateurl', array( 'blogurlShortcodes', 'childtemplateurl' ) );
-?>
