@@ -85,11 +85,11 @@ class blogurlShortcodes
 
     public static function posturl( $attributes )
     {
-
-        $post_id = intval( $attributes['id'] );
-        $return_posturl = get_permalink( $post_id );
-
-        return $return_posturl;
+        if ( ! empty( $attributes['id'] ) ) {
+            return get_permalink( (int) $attributes['id'] );
+        }
+        
+        return null;
     }
 
 
