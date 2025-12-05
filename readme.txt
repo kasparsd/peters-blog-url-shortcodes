@@ -2,8 +2,8 @@
 Contributors: pkthree
 Donate link: http://www.theblog.ca
 Tags: shortcode, post, url, admin
-Requires at least: 2.6
-Tested up to: 4.8
+Requires at least: 4.5
+Tested up to: 6.9
 Stable tag: trunk
 
 Use shortcodes for blog URLs, post URLs, and template URLs so that your posts always have the correct internal links.

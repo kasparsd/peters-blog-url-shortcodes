@@ -85,11 +85,11 @@ class blogurlShortcodes
 
     public static function posturl( $attributes )
     {
-
-        $post_id = intval( $attributes['id'] );
-        $return_posturl = get_permalink( $post_id );
-
-        return $return_posturl;
+        if ( ! empty( $attributes['id'] ) ) {
+            return get_permalink( (int) $attributes['id'] );
+        }
+        
+        return null;
     }
 
 
@@ -138,7 +138,7 @@ class blogurlShortcodes
     public static function getSettings()
     {
         $blogurl_settings = blogurlShortcodes::userSettings();
-        $upload_dir = wp_upload_dir();
+        $upload_dir = wp_get_upload_dir();
         
         if( !$upload_dir['error'] )
         {
@@ -166,4 +166,3 @@ add_shortcode( 'blogurl', array( 'blogurlShortcodes', 'blogurl' ) );
 add_shortcode( 'posturl', array( 'blogurlShortcodes', 'posturl' ) );
 add_shortcode( 'templateurl', array( 'blogurlShortcodes', 'templateurl' ) );
 add_shortcode( 'childtemplateurl', array( 'blogurlShortcodes', 'childtemplateurl' ) );
-?>
