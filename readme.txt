@@ -2,7 +2,7 @@
 Contributors: pkthree
 Donate link: http://www.theblog.ca
 Tags: shortcode, post, url, admin
-Requires at least: 2.6
+Requires at least: 4.5
 Tested up to: 6.9
 Stable tag: trunk
 
